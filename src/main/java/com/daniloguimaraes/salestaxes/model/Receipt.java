@@ -1,7 +1,8 @@
 package com.daniloguimaraes.salestaxes.model;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a receipt.
@@ -14,15 +15,18 @@ import java.util.Set;
  */
 public class Receipt {
 
-    private Set<Product> products;
+    private List<Product> products;
     private BigDecimal salesTaxes;
     private BigDecimal total;
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
+        if (products == null) {
+            products = new ArrayList<>();
+        }
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -41,4 +45,5 @@ public class Receipt {
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
+
 }
