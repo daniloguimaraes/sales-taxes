@@ -1,0 +1,28 @@
+{
+  "products" : [
+    {
+      "amount" : 1,
+      "description" : "book",
+      "shelfPrice" : 12.49,
+      "type": "BOOK",
+      "origin" : "NATIONAL"
+    },
+
+    {
+      "amount" : 1,
+      "description" : "music CD",
+      "shelfPrice" : 14.99,
+      "type": "OTHER",
+      "origin" : "NATIONAL"
+    },
+
+    {
+      "amount" : 1,
+      "description" : "chocolate bar",
+      "shelfPrice" : 0.85,
+      "type": "FOOD",
+      "origin" : "NATIONAL"
+    }
+
+  ]
+}
