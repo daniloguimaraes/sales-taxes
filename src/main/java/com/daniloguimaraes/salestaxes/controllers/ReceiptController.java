@@ -32,9 +32,7 @@ public class ReceiptController {
      * @return
      */
     @PostMapping(value = "/details", consumes = "application/json")
-
     public Receipt details(@RequestBody Receipt receipt) {
-        System.out.println(receipt);
         return receipt;
     }
 }
