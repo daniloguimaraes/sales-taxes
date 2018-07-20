@@ -3,6 +3,8 @@ package com.daniloguimaraes.salestaxes.model;
 import java.math.BigDecimal;
 
 /**
+ * A product representation.
+ *
  * @author Danilo Guimarães
  * @since 20/07/2018
  */
@@ -62,4 +64,10 @@ public class Product {
     public void setTaxesPrice(BigDecimal taxesPrice) {
         this.taxesPrice = taxesPrice;
     }
+
+    @Override
+    public String toString() {
+        return amount + (origin.isImported() ? " imported" : "") + " " + description + " at " + shelfPrice;
+    }
+
 }

@@ -46,4 +46,24 @@ public class Receipt {
         this.total = total;
     }
 
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Product product : products) {
+            sb.append(product.toString()).append("\n");
+        }
+
+        if (salesTaxes != null) {
+            sb.append("Sales Taxes: " + salesTaxes).append("\n");
+        }
+
+        if (total != null) {
+            sb.append("Total: " + total);
+        }
+
+        return sb.toString();
+    }
+
 }
