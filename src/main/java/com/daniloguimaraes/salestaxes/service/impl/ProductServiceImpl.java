@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
             product.setAmount(Integer.valueOf(m.group(GROUP_AMOUNT).trim()));
             final String imported = m.group(GROUP_IMPORTED);
-            if (imported != null && imported.equals("imported")) {
+            if (imported != null && imported.trim().equals("imported")) {
                 product.setOrigin(ProductOrigin.IMPORTED);
             } else {
                 product.setOrigin(ProductOrigin.NATIONAL);
