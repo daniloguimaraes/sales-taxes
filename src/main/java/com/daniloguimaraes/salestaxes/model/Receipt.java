@@ -41,6 +41,10 @@ public class Receipt {
         this.products = products;
     }
 
+    public void addProduct(Product product) {
+        getProducts().add(product);
+    }
+
     public BigDecimal getSalesTaxes() {
         return salesTaxes;
     }
@@ -60,6 +64,9 @@ public class Receipt {
     }
 
     public BigDecimal getTotal() {
+        if (total == null) {
+            total = BigDecimal.ZERO;
+        }
         return total;
     }
 
@@ -90,7 +97,7 @@ public class Receipt {
         }
 
         if (total != null) {
-            sb.append("Total: " + FORMATTER.format(total));
+            sb.append("Total: " + FORMATTER.format(getTotal()));
         }
 
         return sb.toString();

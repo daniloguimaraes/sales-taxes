@@ -46,9 +46,12 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         String[] products = naturalLangugeReceipt.split("\\n");
 
-        for (String product : products) {
+        for (String line : products) {
             try {
-                receipt.getProducts().add(productService.fromNaturalLanguage(product));
+                final Product product = productService.fromNaturalLanguage(line);
+                receipt.addProduct(product);
+
+                receipt.setTotal(receipt.getTotal().add(product.getShelfPrice()));
             } catch (InvalidProductException e) {
                 throw new InvalidReceiptException("Invalid receipt", e);
             }

@@ -11,6 +11,7 @@ import com.daniloguimaraes.salestaxes.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -39,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     private static final int GROUP_IMPORTED = 2;
     private static final int GROUP_DESCRIPTION = 3;
     private static final int GROUP_PRICE = 5;
+    private static final BigDecimal ROUNDING = new BigDecimal("0.05");
 
     @Override
     public Product fromNaturalLanguage(String naturalLanguageProduct) throws InvalidProductException {
@@ -80,7 +82,12 @@ public class ProductServiceImpl implements ProductService {
             taxRate = taxRate.add(rule.taxRate());
         }
 
-        return product.getShelfPrice().multiply(taxRate);
+        BigDecimal tax = product.getShelfPrice().multiply(taxRate);
+
+        BigDecimal rounded = tax.divide(ROUNDING, 9, RoundingMode.HALF_UP);
+        tax = rounded.setScale(0, RoundingMode.UP).multiply(ROUNDING);
+
+        return tax;
     }
 
 }

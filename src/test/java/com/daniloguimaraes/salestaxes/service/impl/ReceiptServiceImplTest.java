@@ -29,13 +29,16 @@ public class ReceiptServiceImplTest extends ReceiptTestResources {
     @Autowired
     private ReceiptServiceImpl sut;
     private Receipt translatedReceipt;
+    private Receipt translatedReceipt3;
     private Receipt calculatedReceipt;
+    private Receipt calculatedReceipt3;
 
     @Before
     public void setUp() throws Exception {
-
         translatedReceipt = sut.translateReceiptFromNaturalLanguage(naturalLanguageReceipt1);
+        translatedReceipt3 = sut.translateReceiptFromNaturalLanguage(naturalLanguageReceipt3);
         calculatedReceipt = sut.calculateTaxes(translatedReceipt);
+        calculatedReceipt3 = sut.calculateTaxes(translatedReceipt3);
     }
 
     @Test
@@ -83,6 +86,12 @@ public class ReceiptServiceImplTest extends ReceiptTestResources {
 
     @Test
     public void testCalculatedReceipt() {
+        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.499"));
+        assertThat(calculatedReceipt.getTotal()).isEqualTo(new BigDecimal("29.83"));
+    }
+
+    @Test
+    public void testCalculatedReceipt3() {
         assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.499"));
         assertThat(calculatedReceipt.getTotal()).isEqualTo(new BigDecimal("29.83"));
     }
