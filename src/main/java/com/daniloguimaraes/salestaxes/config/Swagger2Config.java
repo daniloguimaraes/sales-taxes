@@ -58,7 +58,7 @@ public class Swagger2Config {
                 description,
                 "0.0.1-SNAPSHOT",
                 "Terms of service",
-                new Contact("Danilo Guimarães", "www.example.com", "guimaraesl.djl@gmail.com"),
-                "License of API", "API license URL", Collections.emptyList());
+                new Contact("Danilo Guimarães", "https://github.com/daniloguimaraes/sales-taxes/README.md", "guimaraesl.djl@gmail.com"),
+                null, null, Collections.emptyList());
     }
 }
