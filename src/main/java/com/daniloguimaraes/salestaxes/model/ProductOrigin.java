@@ -11,11 +11,11 @@ public enum ProductOrigin {
     NATIONAL,
     IMPORTED;
 
-    boolean isNational() {
+    public boolean isNational() {
         return this == NATIONAL;
     }
 
-    boolean isImported() {
+    public boolean isImported() {
         return this == IMPORTED;
     }
 

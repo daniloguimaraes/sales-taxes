@@ -12,20 +12,10 @@ import java.math.BigDecimal;
  */
 public enum ProductType {
 
-    BOOK(BigDecimal.ZERO),
-    FOOD(BigDecimal.ZERO),
-    MEDICAL(BigDecimal.ZERO),
-    OTHER(new BigDecimal(0.1));
-
-    private BigDecimal basicalSalesTaxRate;
-
-    ProductType(BigDecimal basicalSalesTaxRate) {
-        this.basicalSalesTaxRate = basicalSalesTaxRate;
-    }
-
-    public BigDecimal getBasicalSalesTaxRate() {
-        return basicalSalesTaxRate;
-    }
+    BOOK,
+    FOOD,
+    MEDICAL,
+    OTHER;
 
     /**
      * Try to infer, based on product description, which product type it is.
