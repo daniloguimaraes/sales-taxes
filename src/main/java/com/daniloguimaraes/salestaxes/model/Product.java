@@ -1,6 +1,8 @@
 package com.daniloguimaraes.salestaxes.model;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * A product representation.
@@ -10,12 +12,15 @@ import java.math.BigDecimal;
  */
 public class Product {
 
+    private static final NumberFormat FORMATTER = new DecimalFormat("0.00");
+
     private Integer amount;
     private String description;
     private ProductOrigin origin;
     private ProductType type;
     private BigDecimal shelfPrice;
     private BigDecimal taxesPrice;
+    private BigDecimal totalPrice;
 
     public Integer getAmount() {
         return amount;
@@ -55,6 +60,7 @@ public class Product {
 
     public void setShelfPrice(BigDecimal shelfPrice) {
         this.shelfPrice = shelfPrice;
+        updateTotalPrice();
     }
 
     public BigDecimal getTaxesPrice() {
@@ -63,11 +69,20 @@ public class Product {
 
     public void setTaxesPrice(BigDecimal taxesPrice) {
         this.taxesPrice = taxesPrice;
+        updateTotalPrice();
+    }
+
+    private void updateTotalPrice() {
+        if (taxesPrice != null) {
+            this.totalPrice = shelfPrice.add(taxesPrice);
+        } else {
+            this.totalPrice = shelfPrice;
+        }
     }
 
     @Override
     public String toString() {
-        return amount + (origin.isImported() ? " imported" : "") + " " + description + " at " + shelfPrice;
+        return amount + (origin.isImported() ? " imported" : "") + " " + description + " at " + FORMATTER.format(totalPrice);
     }
 
 }

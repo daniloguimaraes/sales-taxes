@@ -1,6 +1,11 @@
 package com.daniloguimaraes.salestaxes.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +18,16 @@ import java.util.List;
  * @author Danilo Guimarães
  * @since 20/07/2018
  */
+@ApiModel("Receipt")
 public class Receipt {
 
+    private static final NumberFormat FORMATTER = new DecimalFormat("0.00");
+
+    @ApiModelProperty(name = "Products", required = true)
     private List<Product> products;
+    @ApiModelProperty(name = "Sales Taxes", required = true)
     private BigDecimal salesTaxes;
+    @ApiModelProperty(name = "Total", required = true)
     private BigDecimal total;
 
     public List<Product> getProducts() {
@@ -38,6 +49,16 @@ public class Receipt {
         this.salesTaxes = salesTaxes;
     }
 
+    public void addSalesTaxes(BigDecimal salesTaxes) {
+        if (this.salesTaxes == null) {
+            this.salesTaxes = BigDecimal.ZERO;
+        }
+
+        if (salesTaxes != null) {
+            this.salesTaxes = this.salesTaxes.add(salesTaxes);
+        }
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
@@ -46,7 +67,15 @@ public class Receipt {
         this.total = total;
     }
 
+    public void addTotal(BigDecimal partial) {
+        if (this.total == null) {
+            this.total = BigDecimal.ZERO;
+        }
 
+        if (partial != null) {
+            this.total = this.total.add(partial);
+        }
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -55,12 +84,13 @@ public class Receipt {
             sb.append(product.toString()).append("\n");
         }
 
+
         if (salesTaxes != null) {
-            sb.append("Sales Taxes: " + salesTaxes).append("\n");
+            sb.append("Sales Taxes: " + FORMATTER.format(salesTaxes)).append("\n");
         }
 
         if (total != null) {
-            sb.append("Total: " + total);
+            sb.append("Total: " + FORMATTER.format(total));
         }
 
         return sb.toString();

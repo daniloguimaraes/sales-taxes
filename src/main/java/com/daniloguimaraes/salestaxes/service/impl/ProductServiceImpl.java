@@ -1,12 +1,18 @@
 package com.daniloguimaraes.salestaxes.service.impl;
 
+import com.daniloguimaraes.salestaxes.exception.InvalidProductException;
 import com.daniloguimaraes.salestaxes.model.Product;
 import com.daniloguimaraes.salestaxes.model.ProductOrigin;
+import com.daniloguimaraes.salestaxes.model.ProductOriginTaxCalculationRule;
 import com.daniloguimaraes.salestaxes.model.ProductType;
+import com.daniloguimaraes.salestaxes.model.ProductTypeTaxCalculationRule;
+import com.daniloguimaraes.salestaxes.model.TaxCalculationRule;
 import com.daniloguimaraes.salestaxes.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
     private static final int GROUP_PRICE = 5;
 
     @Override
-    public Product fromNaturalLanguage(String naturalLanguageProduct) {
-        Product product = null;
+    public Product fromNaturalLanguage(String naturalLanguageProduct) throws InvalidProductException {
+        Product product;
 
         Matcher m = PRODUCT_PATTERN.matcher(naturalLanguageProduct);
 
@@ -54,9 +60,27 @@ public class ProductServiceImpl implements ProductService {
             product.setShelfPrice(new BigDecimal(m.group(GROUP_PRICE).trim()));
 
             product.setType(ProductType.infer(product.getDescription()));
+        } else {
+            throw new InvalidProductException(naturalLanguageProduct);
         }
 
         return product;
+    }
+
+    @Override
+    public BigDecimal calculateTaxes(Product product) {
+        BigDecimal taxRate = BigDecimal.ZERO;
+
+        Set<TaxCalculationRule> rules = new HashSet<>();
+
+        rules.add(new ProductOriginTaxCalculationRule(product.getOrigin()));
+        rules.add(new ProductTypeTaxCalculationRule(product.getType()));
+
+        for (TaxCalculationRule rule : rules) {
+            taxRate = taxRate.add(rule.taxRate());
+        }
+
+        return product.getShelfPrice().multiply(taxRate);
     }
 
 }

@@ -29,10 +29,13 @@ public class ReceiptServiceImplTest extends ReceiptTestResources {
     @Autowired
     private ReceiptServiceImpl sut;
     private Receipt translatedReceipt;
+    private Receipt calculatedReceipt;
 
     @Before
     public void setUp() throws Exception {
+
         translatedReceipt = sut.translateReceiptFromNaturalLanguage(naturalLanguageReceipt1);
+        calculatedReceipt = sut.calculateTaxes(translatedReceipt);
     }
 
     @Test
@@ -78,4 +81,9 @@ public class ReceiptServiceImplTest extends ReceiptTestResources {
         assertThat(chocolateBar.getOrigin()).isEqualTo(ProductOrigin.NATIONAL);
     }
 
+    @Test
+    public void testCalculatedReceipt() {
+        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.499"));
+        assertThat(calculatedReceipt.getTotal()).isEqualTo(new BigDecimal("29.83"));
+    }
 }

@@ -1,5 +1,6 @@
 package com.daniloguimaraes.salestaxes.service;
 
+import com.daniloguimaraes.salestaxes.exception.InvalidReceiptException;
 import com.daniloguimaraes.salestaxes.model.Receipt;
 
 /**
@@ -51,5 +52,5 @@ public interface ReceiptService {
      * @param naturalLangugeReceipt the receipt, in natural language.
      * @return an instance of {@link Receipt}.
      */
-    Receipt translateReceiptFromNaturalLanguage(String naturalLangugeReceipt);
+    Receipt translateReceiptFromNaturalLanguage(String naturalLangugeReceipt) throws InvalidReceiptException;
 }

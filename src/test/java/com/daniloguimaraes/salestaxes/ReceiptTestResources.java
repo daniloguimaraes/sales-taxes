@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import java.io.File;
 
 /**
- *
+ * Test resources class.
  *
  * @author Danilo Guimarães
  * @since 20/07/2018
