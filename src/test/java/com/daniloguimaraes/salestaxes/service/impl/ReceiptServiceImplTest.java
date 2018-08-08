@@ -86,13 +86,13 @@ public class ReceiptServiceImplTest extends ReceiptTestResources {
 
     @Test
     public void testCalculatedReceipt() {
-        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.499"));
+        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.50"));
         assertThat(calculatedReceipt.getTotal()).isEqualTo(new BigDecimal("29.83"));
     }
 
     @Test
     public void testCalculatedReceipt3() {
-        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.499"));
+        assertThat(calculatedReceipt.getSalesTaxes()).isEqualTo(new BigDecimal("1.50"));
         assertThat(calculatedReceipt.getTotal()).isEqualTo(new BigDecimal("29.83"));
     }
 }

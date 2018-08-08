@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Danilo Guimarães
  * @since 20/07/2018
  */
-@Api("Receipts")
+@Api(tags = "Receipt", description = "Receipt related endpoints")
 @RestController
 @RequestMapping("/api/receipt")
 public class ReceiptController {
